@@ -121,5 +121,67 @@ namespace Distances.Tests.Unit
             Console.WriteLine($"Beacon-Quarry: {beaconToQuarry}");
             Console.WriteLine($"Quarry-CarPark: {quarryToCarPark}");
         }
+
+        [Test]
+        public void FrequencyAnalysis()
+        {
+            const string p2 = "3718337923432353171371353293675373519132379235377351967231954743253513435353113435371432112337236767253113";
+            const string p5 = "2967534757117367593671131537359835937137717367567371196727923713723567331325371234367535191337537313235357153593713731537153295367117972934343235716723231323367173779729591323151347367112319832713743";
+            const string p10 = "377171536759255315373591371672334723313717351171531371535937152523712323571372677197767219312313233671737257167537331375233674371311238323434322313";
+            const string p13 = "29534343538331753675593713713296753474753573472357113233671737735192367523371371328971377235173747367112319832713743";
+            const string p14 = "296753473753439777324319253171311232953537159371378337217371353535415325133553713723677173675673153257153716723231313233671737371713767232371677351123197167232347367112319832713743";
+
+            Console.WriteLine($" 2: {p2.Length}");
+            Console.WriteLine($" 5: {p5.Length}"); // 1 and 199
+            Console.WriteLine($"10: {p10.Length}");
+            Console.WriteLine($"13: {p13.Length}");
+            Console.WriteLine($"14: {p14.Length}");
+
+            var all = $"{p2}{p5}{p10}{p13}{p14}";
+            Console.WriteLine($"Total: {all.Length}"); // 748: 1,2,4,11,17,22,34,44,68,187,374,748
+
+            var ch = new Dictionary<char, int>();
+            for (var idx = 0; idx < all.Length; ++idx)
+            {
+                var c = all[idx];
+                if (!ch.ContainsKey(c)) ch.Add(c, 0);
+                ch[c]++;
+            }
+            var orderedChars = ch.OrderByDescending(c => c.Value);
+            foreach (var c in orderedChars)
+            {
+                Console.WriteLine($"{c.Key} - {c.Value}");
+            }
+
+            var pairs = new Dictionary<string, int>();
+            for (var idx = 0; idx < all.Length; idx += 2)
+            {
+                var chPair = all.Substring(idx, 2);
+                if (!pairs.ContainsKey(chPair)) pairs.Add(chPair, 0);
+                pairs[chPair]++;
+            }
+
+            var orderedPairs = pairs.OrderByDescending(p => p.Value);
+            Console.WriteLine($"Total pairs: {pairs.Keys.Count}");
+            foreach (var orderedPair in orderedPairs)
+            {
+                Console.WriteLine($"{orderedPair.Key} - {orderedPair.Value}");
+            }
+
+            var quads = new Dictionary<string, int>();
+            for (var idx = 0; idx < all.Length; idx += 4)
+            {
+                var quad = all.Substring(idx, 4);
+                if (!quads.ContainsKey(quad)) quads.Add(quad, 0);
+                quads[quad]++;
+            }
+
+            var orderedQuads = quads.OrderByDescending(q => q.Value);
+            Console.WriteLine($"Total quads: {quads.Keys.Count}");
+            foreach (var orderedQuad in orderedQuads)
+            {
+                Console.WriteLine($"{orderedQuad.Key} - {orderedQuad.Value}");
+            }
+        }
     }
 }
