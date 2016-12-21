@@ -140,6 +140,16 @@ namespace Distances.Tests.Unit
             var all = $"{p2}{p5}{p10}{p13}{p14}";
             Console.WriteLine($"Total: {all.Length}"); // 748: 1,2,4,11,17,22,34,44,68,187,374,748
 
+            // 3 - 209
+            // 7 - 151
+            // 1 - 118
+            // 5 - 81
+            // 2 - 74
+            // 9 - 39
+            // 6 - 38
+            // 4 - 29
+            // 8 - 9
+
             var ch = new Dictionary<char, int>();
             for (var idx = 0; idx < all.Length; ++idx)
             {
